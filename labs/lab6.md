@@ -41,11 +41,17 @@ The four nucleotides that appear in DNA are abbreviated A, C, T and G. Unknown n
   Have your search return all matching lines and the name (or identifier) for each sequence
   that contains a match.
 
+grep -B1 "GNATNACCACTTCC" shell_data/untrimmed_fastq/SRR098026.fastq
+
 2. Search for the sequence `AAGTT` in both FASTQ files.
   Have your search return all matching lines and the name (or identifier) for each sequence
   that contains a match.
 
+grep -H -B1 "AAGTT" shell_data/untrimmed_fastq/*.fastq
+
 3. How do the search results differ when matching in one file vs. both files? If you wanted to keep the original FASTQ format, how would you get around this?
+
+The outputs are mixed if we match both files, we can use -B1 -A2 to keep FASTQ format.
 
 4. Make a file called 'bad-reads.fastq' made up of reads with 10 Ns or more in a row
 
@@ -55,13 +61,24 @@ The four nucleotides that appear in DNA are abbreviated A, C, T and G. Unknown n
 
 How many sequences are there in `SRR098026.fastq`? Remember that every sequence is formed by four lines.
 
+wc -l shell_data/untrimmed_fastq/SRR098026.fastq | awk '{print $1/4}'
+249
+
 ## Exercise 3
 
 How many sequences in `SRR098026.fastq` contain at least 3 consecutive Ns?
 
+grep -B1 "NNN" shell_data/untrimmed_fastq/SRR098026.fastq | grep "^@" | wc -l
+249
+
 ## Exercise 4
 
 Print the file prefix of all of the `.txt` files in our current directory.
+
+for f in *.txt; do
+  basename "$f" .txt
+done
+species_EnsemblBacteria
 
 ## Exercise 5
 
@@ -91,6 +108,35 @@ We want the script to tell us when it's done.
 
 
 
+
+for fqname in *.fastq 
+do
+fastqc $fqname
+done
+
+echo SRR097977.fastq
+echo SRR098026.fastq
+
+for filename in *.fastq
+do
+head -n 2 ${filename}
+done >> ~/file.txt
+
+
+ for filename in *.fastq
+ do
+ echo -e "name=$(basename ${filename} .fastq)"
+ echo -e "mv ${filename}  ${name}_2026.txt"
+ done
+
+
+
+
+for filename in *_2019.txt
+do
+name=$(basename ${filename} _2019.txt)
+mv ${filename} ${name}.txt
+done
 
 for fqname in *.fastq 
 do

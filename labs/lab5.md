@@ -54,8 +54,11 @@ Paste the code you used to do each step between the \'\'\' below:
 
 
 ```
-rm -Rf backup
-
+rm -Rf backup/
+cp SRR097977.fastq SRR097977_backup.fastq
+cp SRR097978.fastq SRR098026_backup.fastq
+mkdir backup
+mv *_backup.fastq backup/
 ```
 
 ### File Permissions Help
@@ -77,18 +80,21 @@ Change the permissions on all of your backup files to be write-protected.
 
 ```
 
-chmod ug+rwx SRR097977.fastq
+chmod a-w backup/*
 ```
 
 How do you know they are write protected?
-A:
+A:ls -l backup
+total 92
+-r--r--r--. 1 yx1040 domain users 47552 Mar  6 14:42 SRR097977_backup.fastq
+-r--r--r--. 1 yx1040 domain users 43332 Mar  6 14:44 SRR098026_backup.fastq
 
 
 ### EXERCISE 5.3: CONDA ENVIRONMENTS AND PROGRAMS
 After loading a conda environment, where is the program 'fastqc' stored?
 
 ```
-Replace this with code
+which fastqc
 
 ```
 

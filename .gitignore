@@ -1,0 +1,6 @@
+*.fastq
+*.fastq.gz
+*_fastqc.zip
+*_fastqc.html
+*_fastqc/
+Gen811_group_project/
